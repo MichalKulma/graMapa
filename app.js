@@ -6,23 +6,28 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function liczba(){
-    return Math.floor(Math.random() * wojewodztwa.features.length-1)
+    return Math.floor(Math.random() * 16)
 }
 
 console.log(wojewodztwa.features)
 
-var points=0
-
-
+var punkty=0
+var zycia=3
+document.getElementById('punkty').innerHTML='punkty: '+punkty
+document.getElementById('zycia').innerHTML='zycia: '+zycia
 
 
 function start(){
      licz=liczba()
     const dol=document.getElementById('woj')
-    
+     
     var wojewodztwo=wojewodztwa.features[licz].properties.nazwa
     
-    dol.innerHTML=wojewodztwo
+if(wojewodztwo==undefined){
+   licz=liczba()
+}
+
+else dol.innerHTML=wojewodztwo
 }
 
 var warstwa=[]
@@ -30,7 +35,7 @@ for(let i=0;i<=wojewodztwa.features.length-1;i++){
     
     var wojewodztwo=wojewodztwa.features[i]
     var mapwoj= L.geoJSON(wojewodztwo).addTo(map)
-    
+
     mapwoj.on('click',function(e){
         
 const wybrane=e.layer.feature.properties.nazwa
@@ -38,17 +43,61 @@ console.log(wybrane)
 
         if(wybrane==wojewodztwa.features[licz].properties.nazwa){
             document.getElementById('odp').innerHTML='dobrze'
-            points=points+1
-            document.getElementById('punkty').innerHTML=points
+            punkty=punkty+1
+            document.getElementById('punkty').innerHTML='punkty: '+punkty
 
+         marker(e.latlng)
+            
+            
+            kolorDobrze(e)
+       //     delete wojewodztwa.features[licz]
+
+            start()
         }
-else{ 
+
+        else{ 
+            zycia=zycia-1
+    kolorZle(e)
     document.getElementById('odp').innerHTML='źle'
+    document.getElementById('zycia').innerHTML='zycia: '+zycia
 
+marker(e.latlng)
 
+if(zycia<=0){
+    document.getElementById('dol').innerHTML='Koniec gry'
+document.getElementById('start').removeAttribute('onclick')
+}
+else start()
 
-start()
 }   
 
 })      
+}
+
+
+function marker(latlng){
+
+  L.marker(latlng).addTo(map)
+}
+
+
+function kolorZle(e){
+    var warstwa=e.target
+
+    warstwa.setStyle({
+        color:'red',
+        weight:2,
+        fillOpacity:0.4
+})
+}
+
+
+function kolorDobrze(e){
+    var warstwa=e.target
+
+    warstwa.setStyle({
+        color:'green',
+        weight:2,
+        fillOpacity:0.7
+})
 }

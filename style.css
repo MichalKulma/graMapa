@@ -30,15 +30,15 @@ font-size: 50px;
 display: grid;
 grid-template-areas:
 "woj"
-"punkty";
+"punkty"
+"zycia";
 
 grid-template-columns: 100%;
-grid-template-rows: 25vh 25vh;
+grid-template-rows:  15vh 15vh 15vh;
 }
 
 #woj{
     grid-area: woj;
-
 }
 
 #punkty{
@@ -46,8 +46,20 @@ grid-template-rows: 25vh 25vh;
 
 }
 
+#zycia{
+    grid-area: zycia;
+}
 
 
 #odp{
-font-size: 50px;
+font-size: 30px;
 }
+
+
+#start{
+    height: 30px;
+    width: 70px;
+    background-color: black;
+    color:yellow
+}
+
