@@ -23,11 +23,7 @@ function start(){
      
     var wojewodztwo=wojewodztwa.features[licz].properties.nazwa
     
-if(wojewodztwo==undefined){
-   licz=liczba()
-}
-
-else dol.innerHTML=wojewodztwo
+ dol.innerHTML=wojewodztwo
 }
 
 var warstwa=[]
@@ -46,11 +42,11 @@ console.log(wybrane)
             punkty=punkty+1
             document.getElementById('punkty').innerHTML='punkty: '+punkty
 
-         marker(e.latlng)
+         marker(e)
             
             
             kolorDobrze(e)
-       //     delete wojewodztwa.features[licz]
+
 
             start()
         }
@@ -65,7 +61,8 @@ marker(e.latlng)
 
 if(zycia<=0){
     document.getElementById('dol').innerHTML='Koniec gry'
-document.getElementById('start').removeAttribute('onclick')
+zycia=3
+punkty=0
 }
 else start()
 
@@ -75,9 +72,9 @@ else start()
 }
 
 
-function marker(latlng){
+function marker(e){
 
-  L.marker(latlng).addTo(map)
+  L.marker(e.target.getBounds().getCenter()).addTo(map)
 }
 
 
