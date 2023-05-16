@@ -5,6 +5,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+
 function liczba(){
     return Math.floor(Math.random() * 16)
 }
@@ -57,7 +58,7 @@ console.log(wybrane)
     document.getElementById('odp').innerHTML='źle'
     document.getElementById('zycia').innerHTML='zycia: '+zycia
 
-marker(e.latlng)
+marker(e)
 
 if(zycia<=0){
     document.getElementById('dol').innerHTML='Koniec gry'
@@ -75,6 +76,8 @@ else start()
 function marker(e){
 
   L.marker(e.target.getBounds().getCenter()).addTo(map)
+
+
 }
 
 
